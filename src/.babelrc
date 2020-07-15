@@ -1,0 +1,15 @@
+// method comes from 
+//  https://gist.github.com/Kruemelkatze/057f01b8e15216ae707dc7e6c9061ef7#file-ant-less
+{
+    "presets": [
+        //...
+    ],
+    "plugins": [
+        //...
+        ["import", {
+            "libraryName": "antd",
+            "libraryDirectory": "es" 
+            
+        }]
+    ]
+}
