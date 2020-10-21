@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import style from './index.scss';
 
 function index(props) {
+  
   return (
     <div className={style.home}>
       <div className={style.background}>
@@ -16,4 +17,5 @@ function index(props) {
 }
 
 // 关联home.js(model) 和 当前的组件index.js(home 组件)
+// 应该跟mapStateToProps一样
 export default connect(({ home }) => ({ ...home }))(index);

@@ -31,6 +31,8 @@ const menus = [
     className: style.login,
     isAuthority: true
   },
+  //为什么这里的结构跟上面几项不一样？
+
   {
     key: 'register',
     path: '/register',
@@ -51,9 +53,12 @@ export default class index extends Component {
     };
   }
 
+  
   /**
    * 当页面刷新时，组件会重新加载，会执行 componentDidMount(cdm) 钩子函数
-   * 为解决刷新页面菜单与路由不同步问题，解决方法则放在 cdm 钩子函数里执行
+   * 为了解决刷新页面，页面虽然改变了，但NavBar的selectedKeys没有改变的问题
+   * 使用onClcik event 来改变state，点击NavBar item触发setState，改变
+   * <Menu defaultSelectedKeys={}>
    */
   componentDidMount() {
     this.handleSetSelectedKeys(this.props.location.pathname);
@@ -70,9 +75,10 @@ export default class index extends Component {
   handleSetSelectedKeys(pathname) {
     // /admin = ["/","admin"]
     // 根据'/'把路由地址分割成一个数组
-    const temp = pathname.split('/');
-    // 如果数组的长度小于2,表示的是只有根路径/,设置为Home. 否则取数组中第二个值
-    const key = temp && temp.length < 2 ? 'home' : temp[1];
+
+    const tempArr = pathname.split('/');
+    // 如果数组存在，且数组的长度小于2,表示的是只有根路径/,设置为Home. 否则取数组中第二个值
+    const key = tempArr && tempArr.length < 2 ? 'home' : tempArr[1];
     this.setState({
       selectedKeys: [key]
     });

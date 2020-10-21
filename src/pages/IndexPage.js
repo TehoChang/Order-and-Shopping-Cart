@@ -19,9 +19,8 @@ import styles from './IndexPage.scss';
 const { Header, Content } = Layout;
 
 function IndexPage(props) {
-  // console.log('IndexPage.js');
-
-  // console.log(props);
+  
+  console.log(props);
   const { routes, app } = props;
   // console.log(routes);
 

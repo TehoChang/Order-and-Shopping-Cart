@@ -8,13 +8,16 @@ import NoMatch from '../components/NoMatch';
 //   console.log(route);
 //   return (
 //     <Route
-//       render={props => <route.component {...props} routes={route.routes} />}
+//       render={
+//          props => <route.component {...props} routes={route.routes} />
+//       }
 //     />
 //   );
 // }
 
-// 解决动态加载路由组件的方法
 
+
+// 解决动态加载路由组件的方法
 const dynamicCom = (app, models, component, routes, isAuthority, userInfo) =>
   dynamic({
     app,
@@ -29,7 +32,9 @@ const dynamicCom = (app, models, component, routes, isAuthority, userInfo) =>
           }
         }
         const Component = res.default || res;
-        return props => <Component {...props} app={app} routes={routes} />;
+        return props => <Component {...props} app={app} routes={routes} />
+        
+        ;
       })
   });
 

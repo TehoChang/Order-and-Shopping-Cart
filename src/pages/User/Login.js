@@ -36,6 +36,7 @@ class index extends Component {
           // console.log(res);
           const { data, status } = res;
           if (res && status === 200 && data) {
+            //声明一个数组接收在server中现存的user info
             let users = [];
             for (const key in data) {
               // console.log(data[key]);
@@ -44,27 +45,31 @@ class index extends Component {
                 key
               });
             }
-            // console.log(users);
-            // 账户密码匹配
+            
+            // 将用户刚输入的帐密与server中回传的user info进行匹配
+            //使用数组的filer方法，遍历每一项，找出密码和email都相符的 项，然后赋值给新数组
+            //处理好的新数组再覆盖users
             users = users.filter(user => {
               return user.pwd === pwd && user.email === email;
             });
-            // console.log(users);
-            // 判断users下是否有内容
+          
+            // 判断users下是否有内容，如果users有内容，而且有长度
+            //代表是否server存有此用户的资料
             if (users && users.length) {
-              // 存到ls
+              // 存到localStorage
               localStorage.setItem('email', users[0].email);
               localStorage.setItem('key', users[0].key);
 
               // 存储到models里
-              this.props
-                .dispatch({
-                  type: 'global/setUserInfo',
+              //装佩connect以后，dispatch()会存在于this.props中
+              this.props.dispatch({
+                  type: 'global/setUserInfo',//这个写法可以对应到model中的effect对象中的方法？？
                   payload: users[0]
-                })
-                .then(() => {
+              }).then(() => {
                   // 页面跳转
+                  //??自动有history?     
                   this.props.history.push('/');
+
                 });
             } else {
               Message.error('邮箱或密码错误, 请重新输入');

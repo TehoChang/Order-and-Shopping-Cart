@@ -30,16 +30,18 @@ class index extends Component {
   // submit
   handleSubmit = e => {
     e.preventDefault();
+    //this.props.form应该是Form.createhook up后产生的
+    //validateFields理解成检验 表单输入格,values就是这个页面的表单提交信息
     this.props.form.validateFields((err, values) => {
       // console.log(err);
       if (!err) {
         const { email, pwd } = values;
-        // 发起网络请求
+        // 发起网络请求，透过post方法，就往url-users.json提交了数据，包含email,pwd
         Request('/users.json', {
-          method: 'post',
+          method: 'post',   //复写了原本的method:'get'
           data: { email, pwd }
         }).then(res => {
-          // console.log(res);
+          // console.log(res);打印看看res的结构
           if (res.status === 200 && res.data) {
             // console.log(this.props.history);
             this.props.history.push('/login');
@@ -50,6 +52,7 @@ class index extends Component {
   };
 
   render() {
+                               //使用Form.Create后产生
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={style.account}>
@@ -73,7 +76,8 @@ class index extends Component {
                 }
               ]
               // initialValue: this.state.email
-            })(<Input />)}
+            })(<Input />)} 
+               {/* 跟Input绑定 */}
           </Form.Item>
           <Form.Item label="密码">
             {getFieldDecorator('pwd', {
