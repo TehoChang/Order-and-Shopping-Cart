@@ -18,7 +18,7 @@ class index extends Component {
     }
   };
 
-  // 自定义校验两次密码是否一致
+  // 自定义校验兩次密碼是否一致
   validatorPwd = (rule, value, callback) => {
     if (value !== this.props.form.getFieldValue('pwd')) {
       callback(rule.message);
@@ -58,78 +58,78 @@ class index extends Component {
       <div className={style.account}>
         <img src={Logo} alt="my logo" className={style.logo} />
         <Form className="account-form">
-          <Form.Item label="邮箱">
+          <Form.Item label="信箱">
             {getFieldDecorator('email', {
               rules: [
                 {
                   required: true,
-                  message: '邮箱不能为空, 请输入邮箱'
+                  message: '信箱不能為空, 請輸入信箱'
                 },
                 // {
                 //   type: 'email',
-                //   message: '请输入正确的邮箱格式, 如: 27732357@qq.com'
+                //   message: '請輸入正確的信箱格式, 如: 27732357@qq.com'
                 // }
                 {
                   pattern: email_reg,
                   validator: this.validatorForm,
-                  message: '请输入正确的邮箱格式,如: 27732357@qq.com'
+                  message: '請輸入正確的信箱格式,如: 27732357@qq.com'
                 }
               ]
               // initialValue: this.state.email
             })(<Input />)} 
                {/* 跟Input绑定 */}
           </Form.Item>
-          <Form.Item label="密码">
+          <Form.Item label="密碼">
             {getFieldDecorator('pwd', {
               rules: [
                 {
                   required: true,
-                  message: '密码不能为空，请输入密码！'
+                  message: '密碼不能為空，請輸入密碼！'
                 },
                 {
                   pattern: pwd_reg,
                   validator: this.validatorForm,
                   message:
-                    '请输入正确的密码格式：6-16位字母、数字或特殊字符 _-.'
+                    '請輸入正確的密碼格式：6-16位字母、數字或特殊字符 _-.'
                 }
               ]
             })(
               <Input
                 maxLength={16}
                 type="password"
-                placeholder="请输入6-16位字母、数字或特殊字符的密码"
+                placeholder="請輸入6-16位字母、數字或特殊字符的密碼"
               />
             )}
           </Form.Item>
-          <Form.Item label="确认密码">
+          <Form.Item label="確認密碼">
             {getFieldDecorator('aPwd', {
               rules: [
                 {
                   required: true,
-                  message: '密码不能为空，请输入密码！'
+                  message: '密碼不能為空，請輸入密碼！'
                 },
                 {
                   pattern: pwd_reg,
                   validator: this.validatorForm,
                   message:
-                    '请输入正确的密码格式：6-16位字母、数字或特殊字符 _-.'
+                    '請輸入正確的密碼格式：6-16位字母、數字或特殊字符 _-.'
                 },
                 {
                   validator: this.validatorPwd,
-                  message: '两次输入的密码不一致！'
+                  message: '兩次输入的密碼不一致！'
                 }
               ]
             })(
               <Input
                 maxLength={16}
                 type="password"
-                placeholder="请输入确认密码"
+                placeholder="請輸入確認密碼"
               />
             )}
           </Form.Item>
           <Form.Item>
             <Button onClick={this.handleSubmit} className="btn" type="primary">
-              注册
+              註冊
             </Button>
           </Form.Item>
         </Form>

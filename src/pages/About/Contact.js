@@ -15,10 +15,10 @@ export default class index extends Component {
         </div>
 
         <div className={styles.info}>
-          {/* 三级路由 */}
+          {/* 三級路由 */}
           <Switch>
             {routes.map((route, i) => (
-              // 调用封装组件
+              // 調用封裝組件
               <SubRoutes key={i} {...route} app={app} />
             ))}
 

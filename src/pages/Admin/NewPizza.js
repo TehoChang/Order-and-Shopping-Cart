@@ -25,7 +25,7 @@ class NewPizza extends Component {
             }
           ]
         };
-        // 网络请求
+        
         Request('/menu.json', {
           method: 'post',
           data
@@ -34,7 +34,7 @@ class NewPizza extends Component {
             Message.success('添加成功');
             window.location.href = '/#/menus';
           } else {
-            Message.error('添加失败');
+            Message.error('添加失敗');
           }
         });
       }
@@ -58,14 +58,14 @@ class NewPizza extends Component {
 
     return (
       <div>
-        <h3>订制你最爱的蛋糕</h3>
+        <h3>訂製你最愛的蛋糕</h3>
         <Form>
-          <Form.Item {...formItemLayout} label="品种">
+          <Form.Item {...formItemLayout} label="種類">
             {getFieldDecorator('name', {
               rules: [
                 {
                   required,
-                  message: '请输入品种'
+                  message: '請輸入種類'
                 }
               ]
             })(<Input />)}
@@ -74,47 +74,47 @@ class NewPizza extends Component {
             {getFieldDecorator('description')(<TextArea />)}
           </Form.Item>
           <p>
-            <strong>选项1:</strong>
+            <strong>選項1:</strong>
           </p>
           <Form.Item {...formItemLayout} label="尺寸">
             {getFieldDecorator('size1', {
               rules: [
                 {
                   required,
-                  message: '请输入尺寸'
+                  message: '請輸入尺寸'
                 }
               ]
             })(<Input />)}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="价格">
+          <Form.Item {...formItemLayout} label="價格">
             {getFieldDecorator('price1', {
               rules: [
                 {
                   required,
-                  message: '请输入价格'
+                  message: '請輸入價格'
                 }
               ]
             })(<Input />)}
           </Form.Item>
           <p>
-            <strong>选项2:</strong>
+            <strong>選項2:</strong>
           </p>
           <Form.Item {...formItemLayout} label="尺寸">
             {getFieldDecorator('size2', {
               rules: [
                 {
                   required,
-                  message: '请输入尺寸'
+                  message: '請輸入尺寸'
                 }
               ]
             })(<Input />)}
           </Form.Item>
-          <Form.Item {...formItemLayout} label="价格">
+          <Form.Item {...formItemLayout} label="價格">
             {getFieldDecorator('price2', {
               rules: [
                 {
                   required,
-                  message: '请输入价格'
+                  message: '請輸入價格'
                 }
               ]
             })(<Input />)}

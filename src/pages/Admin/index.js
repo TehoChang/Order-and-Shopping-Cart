@@ -9,12 +9,12 @@ export default class index extends Component {
     menus: []
   };
 
-  // 钩子函数
+
   componentDidMount() {
     this.getMenusData();
   }
 
-  // 获取菜单列表的数据
+  // 獲取菜單列表的數據
   getMenusData = () => {
     Request('/menu.json').then(res => {
       // console.log(res);
@@ -38,12 +38,12 @@ export default class index extends Component {
     const columns = [
       {
         key: 'name',
-        title: '品种',
+        title: '種類',
         dataIndex: 'name'
       },
       {
         key: 'action',
-        title: '删除',
+        title: '刪除',
         render: (text, record) => (
           <Button
             onClick={() => handleDelete(record)}
@@ -61,10 +61,10 @@ export default class index extends Component {
       }).then(res => {
         // console.log(res);
         if (res && res.status === 200) {
-          Message.success('删除成功');
+          Message.success('刪除成功');
           window.location.href = '/#/menus';
         } else {
-          Message.error('删除失败');
+          Message.error('刪除失败');
         }
       });
     };
@@ -83,7 +83,7 @@ export default class index extends Component {
         dataSource={this.state.menus}
         columns={columns}
         locale={{
-          emptyText: '菜单没有任何商品'
+          emptyText: '菜單沒有商品'
         }}
       />
     );
@@ -100,7 +100,7 @@ export default class index extends Component {
           {this.renderNewPizza()}
         </Col>
         <Col sm={24} md={8} className={style.right}>
-          <h3>菜单</h3>
+          <h3>菜單</h3>
           {this.renderMenuTable()}
         </Col>
       </Row>

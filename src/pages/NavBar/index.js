@@ -7,12 +7,12 @@ const menus = [
   {
     key: 'home',
     path: '/home',
-    name: '主页'
+    name: '首頁'
   },
   {
     key: 'menus',
     path: '/menus',
-    name: '菜单'
+    name: '菜單'
   },
   {
     key: 'admin',
@@ -22,12 +22,12 @@ const menus = [
   {
     key: 'about',
     path: '/about',
-    name: '关于我们'
+    name: '關於我們'
   },
   {
     key: 'login',
     path: '/login',
-    name: '登录',
+    name: '登錄',
     className: style.login,
     isAuthority: true
   },
@@ -36,7 +36,7 @@ const menus = [
   {
     key: 'register',
     path: '/register',
-    name: '注册',
+    name: '註冊',
     className: style.register,
     isAuthority: true
   }
@@ -55,7 +55,7 @@ export default class index extends Component {
 
   
   /**
-   * 当页面刷新时，组件会重新加载，会执行 componentDidMount(cdm) 钩子函数
+   * 当页面刷新时，组件会重新加载，会执行 componentDidMount(cdm) 鉤子函數
    * 为了解决刷新页面，页面虽然改变了，但NavBar的selectedKeys没有改变的问题
    * 使用onClcik event 来改变state，点击NavBar item触发setState，改变
    * <Menu defaultSelectedKeys={}>
@@ -67,7 +67,7 @@ export default class index extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { pathname } = this.props.location;
     if (nextProps.location.pathname !== pathname) {
-      // 当路由发生改变时, 改变当前菜单选中key值
+      // 当路由发生改变时, 改变当前菜單选中key值
       this.handleSetSelectedKeys(nextProps.location.pathname);
     }
   }

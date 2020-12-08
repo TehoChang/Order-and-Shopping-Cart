@@ -7,15 +7,15 @@ function index(props) {
   return (
     <div className={style.home}>
       <div className={style.background}>
-        {/* jsx，在标签内使用css style特殊写法 */}
-        <h1 style={{fontSize: 50}}>欢迎来到Sweet Treats</h1>
-        <h1>订制专属于你的蛋糕</h1>
+        
+        <h1 style={{fontSize: 50}}>歡迎來到Sweet Treats</h1>
+        <h1>客製專屬於你的蛋糕</h1>
         <p>{props.text}</p>
       </div>
     </div>
   );
 }
 
-// 关联home.js(model) 和 当前的组件index.js(home 组件)
-// 应该跟mapStateToProps一样
+// 關連home.js(model) 和 當前的組件index.js(home 組件)
+// 應該跟mapStateToProps一樣
 export default connect(({ home }) => ({ ...home }))(index);

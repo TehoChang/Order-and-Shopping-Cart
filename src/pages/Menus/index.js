@@ -9,12 +9,12 @@ export default class index extends Component {
     menus: []
   };
 
-  // 钩子函数
+  // 鉤子函數
   componentDidMount() {
     this.getMenusData();
   }
 
-  // 获取菜单列表的数据
+  // 獲取菜單列表的數據
   getMenusData = () => {
     Request('/menu.json').then(res => {
       // console.log(res);
@@ -30,7 +30,7 @@ export default class index extends Component {
     const columns = [
       {
         key: 'size',
-        title: '种类＆尺寸',
+        title: '種類＆尺寸',
         dataIndex: 'size',
         render: (text, record) => {
           // console.log(record);
@@ -47,7 +47,7 @@ export default class index extends Component {
       },
       {
         key: 'price',
-        title: '价格',
+        title: '價格',
         dataIndex: 'price',
         render: (text, record) => {
           return <span>{text}</span>;
@@ -96,7 +96,7 @@ export default class index extends Component {
             }
           ]);
 
-      // 存储到状态中
+      // 儲存到state
       this.setState({
         cart
       });
@@ -104,7 +104,7 @@ export default class index extends Component {
 
     let data = this.state.menus;
 
-    // 处理数据格式
+    //  處理數據格式
     let dataSource = [];
     for (const key in data) {
       // console.log(data[item]);
@@ -132,7 +132,7 @@ export default class index extends Component {
     const columns = [
       {
         key: 'count',
-        title: '数量',
+        title: '數量',
         dataIndex: 'count',
         render: (text, record) => (
           <span>
@@ -154,25 +154,25 @@ export default class index extends Component {
       },
       {
         key: 'name',
-        title: '菜单',
+        title: '菜單',
         dataIndex: 'name'
       },
       {
         key: 'price',
-        title: '价格',
+        title: '價格',
         dataIndex: 'price'
       }
     ];
-    // 减
+    // 減
     const handleDecrease = record => {
-      // cart 数据
+      // cart 數據
       let { cart } = this.state;
       // 获取当前点击的数据的下标
       const index = cart.findIndex(item => item.key === record.key);
       // 当前点击的数据对象
       const current = cart[index];
       // console.log(current);
-      // 当前数量小于等于1时, 购物车的商品移除掉 否则商品数量减1
+      // 当前數量小于等于1时, 购物车的商品移除掉 否则商品數量减1
       if (current.count <= 1) {
         cart.splice(index, 1);
       } else {
@@ -195,7 +195,7 @@ export default class index extends Component {
       // 当前点击的数据对象
       const current = cart[index];
       // console.log(current);
-      // 商品数量+1
+      // 商品數量+1
 
       cart.splice(index, 1, {
         ...current,
