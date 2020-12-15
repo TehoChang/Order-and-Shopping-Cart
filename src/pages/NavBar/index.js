@@ -85,7 +85,7 @@ export default class index extends Component {
   }
 
   handleClickMenu = ({ key }) => {
-    // 退出
+    // 登出
     if (key === 'logout') {
       window.localStorage.clear();
       this.props.history.push('/login');
@@ -103,7 +103,7 @@ export default class index extends Component {
   render() {
     return (
       <nav className={style.header}>
-        <a className={style.logo} href="http://www.baidu.com">
+        <a className={style.logo} href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

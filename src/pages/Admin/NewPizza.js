@@ -31,10 +31,10 @@ class NewPizza extends Component {
           data
         }).then(res => {
           if (res && res.status === 200 && res.data) {
-            Message.success('添加成功');
+            Message.success('新增成功');
             window.location.href = '/#/menus';
           } else {
-            Message.error('添加失敗');
+            Message.error('新增失敗');
           }
         });
       }
@@ -126,7 +126,7 @@ class NewPizza extends Component {
               type="primary"
               className="btn-w-p100"
             >
-              添加
+              新增
             </Button>
           </Form.Item>
         </Form>

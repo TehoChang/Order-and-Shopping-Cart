@@ -8,9 +8,9 @@ export default class index extends Component {
     const { routes, app } = this.props;
     return (
       <div className={styles.tabpane}>
-        <p className={styles.title}>联系我们</p>
+        <p className={styles.title}>聯繫我們</p>
         <div className={styles.content}>
-          <Link to="/about/contact/phone">电话</Link>
+          <Link to="/about/contact/phone">電話</Link>
           <Link to="/about/contact/address">地址</Link>
         </div>
 
