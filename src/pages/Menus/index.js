@@ -3,7 +3,9 @@ import { Table, Button, Icon, Row, Col } from 'antd';
 import Request from '../../utils/Request';
 import style from './index.scss';
 
-export default class index extends Component {
+//這個class不需要叫index，檔案叫index.js就好
+//import './Menus' 會自動去找的資料夾下的index.js檔案
+export default class xxx extends Component {
   state = {
     cart: [],
     menus: []
@@ -25,17 +27,17 @@ export default class index extends Component {
       }
     });
   };
-
+//看起來很複雜，反正就是照antd <Table>的規則去設定 layout
   renderMenusTable() {
     const columns = [
       {
         key: 'size',
         title: '種類＆尺寸',
-        dataIndex: 'size',
+        dataIndex: 'size',//去attribute_dataSource的來源找size
         render: (text, record) => {
           // console.log(record);
           if (record.price) {
-            return <span>{text}</span>;
+            return <span>{text}</span>; //text就是record中，size這個key的value,由dataIndex:'size'指定
           }
           return {
             children: <strong>{text}</strong>,
@@ -77,18 +79,18 @@ export default class index extends Component {
     ];
 
     const handleAddMenus = record => {
-      // console.log(record);
+    
       // const { name, price, size } = record;
 
       let { cart } = this.state;
       const index = cart.findIndex(item => item.key === record.key);
       // console.log(index);
       index >= 0
-        ? cart.splice(index, 1, {
+        ? cart.splice(index, 1, {    //splice方法的第三個參數我不知道用法。反正是count +1
             ...cart[index],
             count: cart[index].count + 1
           })
-        : (cart = [
+        : (cart = [  //如果新增項的index<0(原先不存在），在cart array中新增這一項，並將這一項obj的count設為1
             ...cart,
             {
               ...record,
@@ -106,9 +108,9 @@ export default class index extends Component {
 
     //  處理數據格式
     let dataSource = [];
-    for (const key in data) {
-      // console.log(data[item]);
+    for (const key in data) {     
       let item = data[key];
+      
       dataSource.push({
         key: item.name,
         size: item.name
@@ -117,8 +119,8 @@ export default class index extends Component {
         dataSource.push({ ...ele, name: item.name, key: key + '-' + index });
       });
     }
-    // console.log(dataSource);
-
+    
+//一直出現的record應該是dataSource中的一條數據
     return (
       <Table
         pagination={false}
@@ -154,8 +156,13 @@ export default class index extends Component {
       },
       {
         key: 'name',
-        title: '菜單',
+        title: '種類',
         dataIndex: 'name'
+      },
+      {
+        key: 'size',
+        title: '尺寸',
+        dataIndex: 'size'
       },
       {
         key: 'price',
@@ -165,9 +172,10 @@ export default class index extends Component {
     ];
     // 減
     const handleDecrease = record => {
+      
       // cart 數據
       let { cart } = this.state;
-      // 获取当前点击的数据的下标
+      // 获取当前点击的項 在cart中的index
       const index = cart.findIndex(item => item.key === record.key);
       // 当前点击的数据对象
       const current = cart[index];
@@ -207,7 +215,6 @@ export default class index extends Component {
         cart
       });
     };
-
     return (
       <Table
         pagination={false}

@@ -9,10 +9,11 @@ class index extends Component {
   state = {
     email: '27732357000@qq.com'
   };
-  // 自定义表单校验规则
+  // 自定义表单校验规则，在getFieldDecorator中使用
+  //validator方法應該是專門跟getFieldDecorator搭配使用，其中的rule, callback都不好直接理解是什麼，要打印出來才知道
   validatorForm = (rule, value, callback) => {
     if (value && rule.pattern && !value.match(rule.pattern)) {
-      callback(rule.message);
+      callback('sdsdsd'); //callback的參數不需要是rule.message，只要有值就會work，沒值就不會
     } else {
       callback();
     }
@@ -30,15 +31,17 @@ class index extends Component {
   // submit
   handleSubmit = e => {
     e.preventDefault();
-    //this.props.form应该是Form.createhook up后产生的
+    //this.props.form应该是Form.create hook up后产生的
     //validateFields理解成检验 表单输入格,values就是这个页面的表单提交信息
     this.props.form.validateFields((err, values) => {
       // console.log(err);
       if (!err) {
+        //這邊的名稱是email, pwd，應該是下面getFieldDecorator設定的
+        //從input取得用戶的email, pwd
         const { email, pwd } = values;
-        // 发起网络请求，透过post方法，就往url-users.json提交了数据，包含email,pwd
+        // 发起网络请求，透过post方法，往url-users.json提交了数据，包含email,pwd信息
         Request('/users.json', {
-          method: 'post',   //复写了原本的method:'get'
+          method: 'post',   //復寫了原本的method:'get'。所以封裝好的axios方法是可以直接復寫其內容的
           data: { email, pwd }
         }).then(res => {
           // console.log(res);打印看看res的结构
@@ -58,21 +61,18 @@ class index extends Component {
       <div className={style.account}>
         <img src={Logo} alt="my logo" className={style.logo} />
         <Form className="account-form">
-          <Form.Item label="信箱">
+          <Form.Item label="瓜瓜">
             {getFieldDecorator('email', {
-              rules: [
+              // input field規則設定
+              rules: [//可以設定好幾組驗證規則
                 {
                   required: true,
-                  message: '信箱不能為空, 請輸入信箱'
+                  message: '信箱不能為空, 請輸入信箱',
                 },
-                // {
-                //   type: 'email',
-                //   message: '請輸入正確的信箱格式, 如: 27732357@qq.com'
-                // }
                 {
-                  pattern: email_reg,
+                  pattern: email_reg, //使用正則校驗密碼格式
                   validator: this.validatorForm,
-                  message: '請輸入正確的信箱格式,如: 27732357@qq.com'
+                  message: '請輸入正確的信箱格式,如: 123456@gmail.com'
                 }
               ]
               // initialValue: this.state.email

@@ -15,9 +15,7 @@ import NoMatch from '../components/NoMatch';
 //   );
 // }
 
-
-
-// 解决动态加载路由组件的方法
+// 解决动态加载路由的方法，dva dynamic
 const dynamicCom = (app, models, component, routes, isAuthority, userInfo) =>
   dynamic({
     app,
@@ -40,7 +38,6 @@ const dynamicCom = (app, models, component, routes, isAuthority, userInfo) =>
 
 function SubRoutes({ routes, component, app, model, isAuthority, userInfo }) {
   // console.log('subRoutes.js');
-
   return (
     <Route
       component={dynamicCom(

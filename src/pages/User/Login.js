@@ -1,3 +1,4 @@
+//跟Register的程式碼非常像
 import React, { Component } from 'react';
 import { Form, Input, Button, Message } from 'antd';
 import { email_reg, pwd_reg } from '../../utils/Regexp.js';
@@ -29,14 +30,17 @@ class index extends Component {
   // submit
   handleSubmit = e => {
     e.preventDefault();
+    //values是用戶輸入Form的帳號、密碼
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { email, pwd } = values;
+       
+
+        const { email, pwd } = values; 
         Request('users.json').then(res => {
           // console.log(res);
           const { data, status } = res;
-          if (res && status === 200 && data) {
-            //声明一个数组接收在server中现存的user info
+          if (res && status === 200 && data) { //若沒有這個條件判斷會怎麼樣?刪除後app正常，應該是為了更完善地檢查server res是否正常
+            //宣告一个数组，接收在server中已經存在的user info
             let users = [];
             for (const key in data) {
               // console.log(data[key]);
@@ -45,16 +49,14 @@ class index extends Component {
                 key
               });
             }
-            
-            // 将用户刚输入的帐密与server中回传的user info进行匹配
-            //使用数组的filer方法，遍历每一项，找出密碼和email都相符的 项，然后赋值给新数组
-            //处理好的新数组再覆盖users
+            // 将用户刚输入的帐密与server中回传的user info进行比較
+            //使用数组的filer方法，遍历每一项，過濾出密碼和email都相符的 项，
+            //然後用變數users接收返回的新數組，也就是密碼和email都相符的這一項           
             users = users.filter(user => {
               return user.pwd === pwd && user.email === email;
             });
-          
-            // 判断users下是否有内容，如果users有内容，而且有长度
-            //代表是否server存有此用户的资料
+            // 判断users現在是否有内容，如果users有内容，而且有长度
+            // 代表是否server存有此用户的资料
             if (users && users.length) {
               // 存到localStorage
               localStorage.setItem('email', users[0].email);

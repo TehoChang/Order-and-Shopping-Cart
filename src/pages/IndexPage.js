@@ -7,6 +7,7 @@ import '../App.less';
 import { Switch } from 'dva/router';
 import SubRoutes, { RedirectRoute, NoMatchRoute } from '../utils/SubRoutes';
 
+//這種寫法，導入時會去NavBar資料夾找index.js，方便在資料夾內一起管理index.scss
 import NavBar from './NavBar';
 // import Home from './Home';
 // import About from './About';
@@ -19,10 +20,11 @@ import styles from './IndexPage.scss';
 const { Header, Content } = Layout;
 
 function IndexPage(props) {
-  
   console.log(props);
   const { routes, app } = props;
-  // console.log(routes);
+  console.log('IndexPage.js')
+  console.log(routes);
+  console.log(app)
 
   return (
     <Layout className={styles.layout}>
@@ -33,12 +35,7 @@ function IndexPage(props) {
       <Content className={styles.content}>
         {/* 一级路由 */}
         <Switch>
-          {/* <Route path="/home" component={Home} />
-          <Route path="/menus" component={Menus} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/about" component={About} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} /> */}
+        
           {routes.map((route, i) => (
             // 调用封装组件
             <SubRoutes key={i} {...route} app={app} />

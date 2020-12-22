@@ -1,3 +1,4 @@
+//router.js用在總index.js
 import React from 'react';
 import { Router, Switch } from 'dva/router';
 // import IndexPage from './pages/IndexPage';
@@ -15,8 +16,9 @@ const isAuthority = true;
 const RouteConfig = [
   {
     path: '/',
-    // component: IndexPage,
-    component: () => import('./pages/IndexPage'),
+    // component: IndexPage(原本的寫法)
+    component: () => {return import('./pages/IndexPage')},
+                     //
     model: [],
     routes: [
       {
@@ -28,7 +30,7 @@ const RouteConfig = [
       },
       {
         path: '/menus',
-        component: () => import('./pages/Menus'),
+        component: () => {return import('./pages/Menus')},
         model: [],
         isAuthority
       },

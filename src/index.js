@@ -1,11 +1,12 @@
 import dva from 'dva';
-import './index.css';
+
+import './index.css'; //不一定要寫import xxx from 'xxx'，直接import 'xxx'，import整個檔案
+                      //RouteConfig就是這樣寫的
 // import 'ant.less';
 
 // 1. Initialize,使用dva(）创建一个app实例
 const app = dva();
-
-// console.log('index.js');
+console.log('index.js');
 
 // 2. Plugins
 // app.use({});
