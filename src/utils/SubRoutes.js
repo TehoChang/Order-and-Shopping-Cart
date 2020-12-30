@@ -3,6 +3,7 @@ import { Route, Redirect } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import { connect } from 'dva';
 import NoMatch from '../components/NoMatch';
+import {Message} from 'antd'
 
 // export default function SubRoutes(route) {  
 //   console.log(route);
@@ -26,6 +27,7 @@ const dynamicComponent = (app, models, component, routes, isSignedIn, userInfo, 
         //增加管理員權限控管 
         if (isAdmin) {
           if (!localStorage.admin || localStorage.admin !== 'iamadmin') {
+            Message.error('您的帳號沒有管理員權限',1)
             return () => <Redirect to="/home" />
           }
         }

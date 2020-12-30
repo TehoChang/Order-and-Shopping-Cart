@@ -4,7 +4,7 @@ import Request from '../../utils/Request';
 
 const { TextArea } = Input;
 
-class NewPizza extends Component {
+class NewCake extends Component {
   handleSubmit = () => {
     // console.log(this.props.form);
     this.props.form.validateFields((err, value) => {
@@ -136,4 +136,4 @@ class NewPizza extends Component {
   }
 }
 
-export default Form.create()(NewPizza);
+export default Form.create()(NewCake);

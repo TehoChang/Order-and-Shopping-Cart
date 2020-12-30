@@ -10,7 +10,7 @@ import style from './account.scss';
 @connect()
 class Login extends Component {
   componentDidMount() {
-    Message.success('請輸入信箱與密碼',1) 
+    Message.error('請輸入帳號與密碼',1) 
   }
   
   
@@ -67,7 +67,7 @@ class Login extends Component {
 
                 });
             } else {
-              Message.error('信箱或密碼錯誤，請重新輸入');
+              Message.error('帳號或密碼錯誤，請重新輸入');
             }
           }
         });
@@ -81,21 +81,21 @@ class Login extends Component {
       <div className={style.account}>
         <img src={Logo} alt="my logo" className={style.logo} />
         <Form className="account-form">
-          <Form.Item label="信箱">
+          <Form.Item label="帳號">
             {getFieldDecorator('email', {
               rules: [
                 {
                   required: true,
-                  message: '信箱不能為空, 請輸入信箱'
+                  message: '請使用email作為您的帳號'
                 },
                 // {
                 //   type: 'email',
-                //   message: '請輸入正確的信箱格式, 如: 27732357@qq.com'
+                //   message: '請使用email作為您的帳號, 如: 27732357@qq.com'
                 // }
                 {
                   pattern: email_reg,
                   validator: this.validatorForm,
-                  message: '請輸入正確的信箱格式'
+                  message: '請使用email作為您的帳號'
                 }
               ]
               // initialValue: this.state.email

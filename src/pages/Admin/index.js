@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Table, Button, Row, Col, Message } from 'antd';
 import Request from '../../utils/Request';
-import NewPizza from './NewCake';
+import NewCake from './NewCake';
+//『組件』引入的時候必須跟檔名同名，但是在NewCake.js中這個function or class名字可以隨意取
 import style from './index.scss';
 
 export default class index extends Component {
@@ -101,15 +102,15 @@ export default class index extends Component {
     );
   }
 
-  renderNewPizza() {
-    return <NewPizza />;
+  rendernewCake() {
+    return <NewCake />;
   }
 
   render() {
     return (
       <Row className={style.admin}>
         <Col sm={24} md={16} className={style.left}>
-          {this.renderNewPizza()}  
+          {this.rendernewCake()}  
         </Col>
         <Col sm={24} md={8} className={style.right}>
           <h3>菜單</h3>
