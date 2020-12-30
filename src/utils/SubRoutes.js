@@ -4,7 +4,7 @@ import dynamic from 'dva/dynamic';
 import { connect } from 'dva';
 import NoMatch from '../components/NoMatch';
 
-// export default function SubRoutes(route) {
+// export default function SubRoutes(route) {  
 //   console.log(route);
 //   return (
 //     <Route
@@ -15,47 +15,52 @@ import NoMatch from '../components/NoMatch';
 //   );
 // }
 
-
-
-// 解决动态加载路由组件的方法
-const dynamicCom = (app, models, component, routes, isAuthority, userInfo) =>
+// 以dynamic方法為基礎，封裝動態加載路由的方法
+//這些參數從routeConfig_array，還有上層組件傳來（我是在做了路由權限的練習之後，才更理解這一部分）
+const dynamicComponent = (app, models, component, routes, isSignedIn, userInfo, isAdmin) =>
   dynamic({
     app,
     models: () => models,
     component: () =>
-      component().then(res => {
-        // console.log(isAuthority);
-        if (isAuthority) {
-          // 判断userInfo.id 是否有内容
-          if (!localStorage.key || !localStorage.email) {
-            return () => <Redirect to="/login" />;
+      component().then(res => { //這寫法超過我的理解。是promise用法？
+        //增加管理員權限控管 
+        if (isAdmin) {
+          if (!localStorage.admin || localStorage.admin !== 'iamadmin') {
+            return () => <Redirect to="/home" />
           }
         }
-        const Component = res.default || res;
-        return props => <Component {...props} app={app} routes={routes} />
+        if (isSignedIn) { //推測邏輯：那些isSignedIn=true的路由，如果localStorage沒有key或沒有email就跳到/login
+          // 判断userInfo.id 是否有内容
+          if (!localStorage.key || !localStorage.email) { //只要兩者中的一個沒有東西就跳到登錄頁
+            return () => <Redirect to="/login" />;
+          }
+        } //這一段沒了，就沒有權限管理
         
-        ;
+        // console.log('res:', res)
+        const Component = res.default || res;  //若用戶是登錄狀態，則正常渲染組件
+        return props => <Component {...props} app={app} routes={routes} />
+
+          ;
       })
   });
-
-function SubRoutes({ routes, component, app, model, isAuthority, userInfo }) {
+function SubRoutes({ routes, component, app, model, isSignedIn, userInfo, isAdmin }) {
   // console.log('subRoutes.js');
-
   return (
     <Route
-      component={dynamicCom(
+      component={dynamicComponent(
         app,
         model,
         component,
         routes,
-        isAuthority,
-        userInfo
+        isSignedIn,
+        userInfo,
+        isAdmin
       )}
     />
   );
 }
 
-// 重定向封装组件
+// 重定向封装组件。 這段在幹嘛？
 export function RedirectRoute({ routes, from, exact }) {
   const routeR = routes.filter(item => {
     return item.redirect;
@@ -70,7 +75,7 @@ export function NoMatchRoute({ status = 404 }) {
   return <Route render={props => <NoMatch {...props} status={status} />} />;
 }
 
-// 链接
+// 類似把用戶資訊存到store
 export default connect(({ global }) => ({
   userInfo: global.userInfo
 }))(SubRoutes);

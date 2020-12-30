@@ -17,11 +17,13 @@ export default class index extends Component {
   // 獲取菜單列表的數據
   getMenusData = () => {
     Request('/menu.json').then(res => {
-      // console.log(res);
+
       if (res && res.status === 200 && res.data) {
+
         this.setState({
-          menus: res.data
+          menus: res.data //照這個寫法state_menus就從陣列變一個大object了
         });
+
       }
     });
   };
@@ -32,7 +34,7 @@ export default class index extends Component {
         key: 'size',
         title: '種類＆尺寸',
         dataIndex: 'size',
-        render: (text, record) => {
+        render: (text, record) => {  //要看懂這段需要看documentations
           // console.log(record);
           if (record.price) {
             return <span>{text}</span>;
@@ -49,14 +51,14 @@ export default class index extends Component {
         key: 'price',
         title: '價格',
         dataIndex: 'price',
-        render: (text, record) => {
+        render: (text, record) => {   //比照Admin.js，可以知道這一段是多餘的。text就是record.price的value
           return <span>{text}</span>;
         }
       },
       {
         key: 'action',
         title: '加入',
-        render: (text, record) => {
+        render: (text, record) => { //render的概念就是最後要return 一段
           const obj = {
             children: (
               <Button
@@ -76,48 +78,47 @@ export default class index extends Component {
       }
     ];
 
-    const handleAddMenus = record => {
-      // console.log(record);
-      // const { name, price, size } = record;
 
+
+    const handleAddMenus = record => {
       let { cart } = this.state;
       const index = cart.findIndex(item => item.key === record.key);
-      // console.log(index);
+      //查找目前cart中，是否已存在點擊'＋'的這一項數據      
       index >= 0
-        ? cart.splice(index, 1, {
-            ...cart[index],
-            count: cart[index].count + 1
-          })
-        : (cart = [
-            ...cart,
-            {
-              ...record,
-              count: 1
-            }
-          ]);
+        ? cart.splice(index, 1, { //若cart_array中已經有點擊項，刪除原本的項，將原本的項的count+1，放回陣列
+          ...cart[index],
+          count: cart[index].count + 1
+        })
+        : (cart = [  //若cart中不存在點擊項，將陣列展開，然後加入新項，設定count:1
+          ...cart,  //為什麼不直接cart.push推進陣列()，要用展開運算符 (我測試過push，app正常)
+          {
+            ...record,
+            count: 1
+          }
+        ]);
 
       // 儲存到state
       this.setState({
         cart
       });
     };
-
     let data = this.state.menus;
-
-    //  處理數據格式
-    let dataSource = [];
+    // 設計數據格式
+    let dataSource = []; //dataSource需要陣列類型
     for (const key in data) {
-      // console.log(data[item]);
-      let item = data[key];
+
+      let item = data[key]; //取到每一筆資料，類型object
       dataSource.push({
         key: item.name,
         size: item.name
       });
-      item.options.forEach((ele, index) => {
-        dataSource.push({ ...ele, name: item.name, key: key + '-' + index });
+      //先push品項行 
+      item.options.forEach((ele, index) => { //forEach將陣列中的每一項遍歷，每一項是一個object
+        dataSource.push({ ...ele, name: item.name, key: item.name + '-' + index });
+        //
       });
     }
-    // console.log(dataSource);
+    console.log(dataSource);
 
     return (
       <Table
@@ -154,15 +155,22 @@ export default class index extends Component {
       },
       {
         key: 'name',
-        title: '菜單',
-        dataIndex: 'name'
+        title: '商品名稱',
+        dataIndex: 'name',
+        render: (text, record) => {  //參數的順序是固定的，text,record，寫反會報錯
+          return <span>{`${record.name}, ${record.size}吋`}</span>
+        }
       },
       {
         key: 'price',
         title: '價格',
-        dataIndex: 'price'
+        dataIndex: 'price',
+        render: (text, record) => {
+          return <span>{record.count * record.price}</span>
+        }
       }
     ];
+
     // 減
     const handleDecrease = record => {
       // cart 數據
@@ -171,11 +179,11 @@ export default class index extends Component {
       const index = cart.findIndex(item => item.key === record.key);
       // 当前点击的数据对象
       const current = cart[index];
-      // console.log(current);
       // 当前數量小于等于1时, 购物车的商品移除掉 否则商品數量减1
       if (current.count <= 1) {
         cart.splice(index, 1);
       } else {
+        //cart[index].count-- 也會成功
         cart.splice(index, 1, {
           ...current,
           count: current.count - 1
@@ -186,6 +194,7 @@ export default class index extends Component {
         cart
       });
     };
+
     // 加
     const handleIncrease = record => {
       // cart 数据
@@ -194,14 +203,12 @@ export default class index extends Component {
       const index = cart.findIndex(item => item.key === record.key);
       // 当前点击的数据对象
       const current = cart[index];
-      // console.log(current);
+      //cart[index].count++  //我這個寫法就可以了，老師很愛用splice，why? 我當作練習閱讀別人程式碼
       // 商品數量+1
-
       cart.splice(index, 1, {
         ...current,
         count: current.count + 1
       });
-
       // 更新状态
       this.setState({
         cart
@@ -215,15 +222,17 @@ export default class index extends Component {
         dataSource={this.state.cart}
         columns={columns}
         locale={{
-          emptyText: '购物车没有任何商品'
+          emptyText: '購物車没有商品'
         }}
       />
     );
   }
 
   render() {
+
+ 
     const totalPrice = this.state.cart.reduce(
-      (total, item) => (total += item.price * item.count),
+      (total, item) => {return total+ (item.price * item.count)},
       0
     );
     return (
@@ -233,9 +242,9 @@ export default class index extends Component {
         </Col>
         <Col sm={24} md={8}>
           {this.renderCartTable()}
-          <p className={style['total-price']}>总价: {totalPrice}</p>
+          <p className={style['total-price']}>總價: {totalPrice}</p>
           <Button type="primary" className={style['submit-btn']}>
-            提交
+            確認下單
           </Button>
         </Col>
       </Row>

@@ -13,7 +13,7 @@ const app = dva();
 // 3. Model 在这里管理redux state
 app.model(require('./models/global').default);
 
-// 4. Router
+// 4. Router 將配置好的router組件傳進來
 app.router(require('./router').default);
 
 // 5. Start

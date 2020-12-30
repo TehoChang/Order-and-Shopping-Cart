@@ -15,24 +15,24 @@ const menus = [
     name: '菜單'
   },
   {
-    key: 'admin',
-    path: '/admin',
-    name: '管理'
-  },
-  {
     key: 'about',
     path: '/about',
     name: '關於我們'
   },
   {
+    key: 'admin',
+    path: '/admin',
+    name: '管理',
+    className: style.admin  //
+  },
+  {
     key: 'login',
     path: '/login',
     name: '登錄',
-    className: style.login,
+    className: style.login, //在css設定註冊、登錄、dropdown的位置
     isAuthority: true
   },
   //为什么这里的结构跟上面几项不一样？
-
   {
     key: 'register',
     path: '/register',
@@ -43,6 +43,7 @@ const menus = [
 ];
 
 export default class index extends Component {
+  //我搞不懂什麼時候this.state要寫在constructor，什麼時候不用？
   constructor(props) {
     // console.log(props);
     // console.log('NavBar/index.js');
@@ -53,7 +54,7 @@ export default class index extends Component {
     };
   }
 
-  
+
   /**
    * 当页面刷新时，组件会重新加载，会执行 componentDidMount(cdm) 鉤子函數
    * 为了解决刷新页面，页面虽然改变了，但NavBar的selectedKeys没有改变的问题
@@ -64,7 +65,7 @@ export default class index extends Component {
     this.handleSetSelectedKeys(this.props.location.pathname);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     const { pathname } = this.props.location;
     if (nextProps.location.pathname !== pathname) {
       // 当路由发生改变时, 改变当前菜單选中key值
@@ -75,7 +76,6 @@ export default class index extends Component {
   handleSetSelectedKeys(pathname) {
     // /admin = ["/","admin"]
     // 根据'/'把路由地址分割成一个数组
-
     const tempArr = pathname.split('/');
     // 如果数组存在，且数组的长度小于2,表示的是只有根路径/,设置为Home. 否则取数组中第二个值
     const key = tempArr && tempArr.length < 2 ? 'home' : tempArr[1];
@@ -83,8 +83,7 @@ export default class index extends Component {
       selectedKeys: [key]
     });
   }
-
-  handleClickMenu = ({ key }) => {
+  handleClickMenu = ({ key }) => { //從什麼玩意中解構出key? <Menu.Item key="logout">
     // 登出
     if (key === 'logout') {
       window.localStorage.clear();
@@ -92,7 +91,7 @@ export default class index extends Component {
     }
   };
 
-  menu = (
+  menu = ( //退出按鈕 。一段JSX可以直接賦值給變量
     <Menu onClick={this.handleClickMenu}>
       <Menu.Item key="logout">
         <span>退出</span>
@@ -133,17 +132,19 @@ export default class index extends Component {
         >
           {menus
             .filter(
-              ({ isAuthority }) =>
+              ({ isAuthority }) =>//filter會遍歷陣列中的每一項，每一項是object，從每一項object中解構出isAuthority
                 !(isAuthority && localStorage.key && localStorage.email)
-            )
+            )  // (三項都為true)以外的項就顯示
             .map(({ key, path, name, className }) => (
               <Menu.Item key={key} className={className}>
                 <Link to={path}>{name}</Link>
               </Menu.Item>
             ))}
         </Menu>
-        {/* 用户email和退出 */}
-        {localStorage.email && localStorage.key && (
+        {/* 用户email和退出 
+            overlay應該是dropdow會掉下來的內容
+        */}
+        {localStorage.email && localStorage.key && ( //還有這種寫法的嗎？這種寫法的名稱是什麼？表示三個東西都為true就顯示？
           <Dropdown overlay={this.menu} className={style['dropdown-menu']}>
             <a className="ant-dropdown-link">
               <span className={style.email}>{localStorage.email}</span>{' '}

@@ -1,3 +1,4 @@
+//其中很多是dva特有的用法
 import React from 'react';
 import { Router, Switch } from 'dva/router';
 // import IndexPage from './pages/IndexPage';
@@ -9,10 +10,11 @@ import { Router, Switch } from 'dva/router';
 // import Register from './pages/User/Register';
 import SubRoutes from './utils/SubRoutes';
 
-// 私有路由的开关
-const isAuthority = true;
+// 路由權限的開關
+const isSignedIn = true;
+const isAdmin=true;
 
-const RouteConfig = [
+const RouteConfig = [ //
   {
     path: '/',
     // component: IndexPage,
@@ -24,25 +26,26 @@ const RouteConfig = [
         component: () => import('./pages/Home'),
         model: [import('./models/home')],
         redirect: true,
-        isAuthority
+        isSignedIn
       },
       {
         path: '/menus',
         component: () => import('./pages/Menus'),
         model: [],
-        isAuthority
+        isSignedIn
       },
       {
         path: '/admin',
         component: () => import('./pages/Admin'),
         model: [],
-        isAuthority
+        isAdmin
+        // isSignedIn,
       },
       {
         path: '/about',
         component: () => import('./pages/About'),
         model: [],
-        isAuthority,
+        isSignedIn,
         routes: [
           {
             path: '/about/history',
@@ -94,7 +97,7 @@ const RouteConfig = [
 
 function RouterConfig({ history, app }) {
   // console.log('router.js');
-  // console.log(app);
+  // console.log(app); 有這個app參數應該是因為dva的關係。history也是
   return (
     <Router history={history}>
       <Switch>

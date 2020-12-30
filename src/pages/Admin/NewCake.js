@@ -31,8 +31,8 @@ class NewPizza extends Component {
           data
         }).then(res => {
           if (res && res.status === 200 && res.data) {
-            Message.success('新增成功');
-            window.location.href = '/#/menus';
+            Message.success('新增成功',2);
+            window.history.go(0)
           } else {
             Message.error('新增失敗');
           }
@@ -41,6 +41,7 @@ class NewPizza extends Component {
     });
   };
   render() {
+    //Form.Item標籤的屬性，用來調整layout，使用obj格式設定，
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -58,7 +59,7 @@ class NewPizza extends Component {
 
     return (
       <div>
-        <h3>訂製你最愛的蛋糕</h3>
+        <h3>新增蛋糕種類</h3>
         <Form>
           <Form.Item {...formItemLayout} label="種類">
             {getFieldDecorator('name', {
@@ -97,13 +98,13 @@ class NewPizza extends Component {
             })(<Input />)}
           </Form.Item>
           <p>
-            <strong>選項2:</strong>
+            <strong>選項2（非必填）:</strong>
           </p>
           <Form.Item {...formItemLayout} label="尺寸">
             {getFieldDecorator('size2', {
               rules: [
                 {
-                  required,
+                  
                   message: '請輸入尺寸'
                 }
               ]
@@ -113,7 +114,7 @@ class NewPizza extends Component {
             {getFieldDecorator('price2', {
               rules: [
                 {
-                  required,
+                  
                   message: '請輸入價格'
                 }
               ]

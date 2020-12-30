@@ -28,8 +28,8 @@ export default class index extends Component {
         >
           <TabPane tab="歷史訂單" key="/about/history" />
           <TabPane tab="聯繫我們" key="/about/contact" />
-          <TabPane tab="點餐檔案" key="/about/orderingguide" />
-          <TabPane tab="快遞信息" key="/about/delivery" />
+          <TabPane tab="點餐教學" key="/about/orderingguide" />
+          <TabPane tab="配送服務" key="/about/delivery" />
         </Tabs>
         <div className={style.routes}>
           

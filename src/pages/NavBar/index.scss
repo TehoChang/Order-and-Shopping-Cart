@@ -14,7 +14,8 @@
   }
   .menu-left {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: super;
+    line-height: 40px;
     background: none;
     border-bottom: none;
     position: relative;
@@ -27,6 +28,10 @@
       position: absolute;
       right: 0;
     }
+    .admin{
+      position: absolute;
+      right:136px;
+    }
   }
   .dropdown-menu {
     position: absolute;
@@ -36,15 +41,21 @@
     
     .email {
       display: inline-block;
-      line-height: 1em;
-      max-width: 150px;
+      font-size: 16px;
+      // line-height: 1.2em;
+      max-width: 125px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding-top: 1px; //跟'管理'對齊
     }
     .icon {
-      margin-left: 5px;
-      vertical-align: 0;
-    }
+      margin-right:-4px;
+      margin-left: -5px;
+      vertical-align: super;; // 置中
+     }
   }
+}
+.ant-menu-horizontal {
+  line-height: 42px;
 }

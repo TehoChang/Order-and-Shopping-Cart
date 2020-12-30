@@ -2,7 +2,7 @@ export default {
   namespace: 'home',
 
   state: {
-    text: 'models/home.js, state.text'
+    // text: 'models/home.js, state.text'
 
   },
 

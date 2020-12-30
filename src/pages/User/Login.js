@@ -1,3 +1,4 @@
+//幾乎是直接複製貼上Register頁
 import React, { Component } from 'react';
 import { Form, Input, Button, Message } from 'antd';
 import { email_reg, pwd_reg } from '../../utils/Regexp.js';
@@ -7,8 +8,13 @@ import Logo from 'Assets/logo.jpg';
 import style from './account.scss';
 
 @connect()
-class index extends Component {
-  // 自定义表单校验规则
+class Login extends Component {
+  componentDidMount() {
+    Message.success('請輸入信箱與密碼',1) 
+  }
+  
+  
+  // 自定义表单校验规则，這是固定寫法。邏輯：比對用戶輸入的value是否符合我們定義的pattern
   validatorForm = (rule, value, callback) => {
     if (value && rule.pattern && !value.match(rule.pattern)) {
       callback(rule.message);
@@ -16,16 +22,6 @@ class index extends Component {
       callback();
     }
   };
-
-  // 自定义校验兩次密碼是否一致
-  validatorPwd = (rule, value, callback) => {
-    if (value !== this.props.form.getFieldValue('pwd')) {
-      callback(rule.message);
-      return;
-    }
-    callback();
-  };
-
   // submit
   handleSubmit = e => {
     e.preventDefault();
@@ -33,21 +29,19 @@ class index extends Component {
       if (!err) {
         const { email, pwd } = values;
         Request('users.json').then(res => {
-          // console.log(res);
+          //data is an object，其中的數據是以key:{user info}的方式儲存
           const { data, status } = res;
           if (res && status === 200 && data) {
-            //声明一个数组接收在server中现存的user info
+            //声明一个陣列接收在server中儲存的的user info
             let users = [];
-            for (const key in data) {
-              // console.log(data[key]);
+            for (const key in data) {             
               users.push({
                 ...data[key],
-                key
+                key:key
               });
             }
-            
             // 将用户刚输入的帐密与server中回传的user info进行匹配
-            //使用数组的filer方法，遍历每一项，找出密碼和email都相符的 项，然后赋值给新数组
+            //使用数组的filer方法，遍历每一项userInfo_object，找出密碼和email都相符的 项，然后赋值给新数组
             //处理好的新数组再覆盖users
             users = users.filter(user => {
               return user.pwd === pwd && user.email === email;
@@ -59,15 +53,16 @@ class index extends Component {
               // 存到localStorage
               localStorage.setItem('email', users[0].email);
               localStorage.setItem('key', users[0].key);
-
-              // 存储到models里
+              localStorage.setItem('admin',users[0].admin)
+              
+              // 儲存到models里
               //装佩connect以后，dispatch()会存在于this.props中
               this.props.dispatch({
                   type: 'global/setUserInfo',//这个写法可以对应到model中的effect对象中的方法？？
                   payload: users[0]
               }).then(() => {
-                  // 页面跳转
-                  //??自动有history?     
+                  // 頁面跳轉到首頁
+                  //??自动有history? 是的，應該是dva的原因                   
                   this.props.history.push('/');
 
                 });
@@ -139,4 +134,4 @@ class index extends Component {
   }
 }
 
-export default Form.create()(index);
+export default Form.create()(Login);
