@@ -8,9 +8,11 @@ function index(props) {
     <div className={style.home}>
       <div className={style.background}>
         
-        <h1 style={{fontSize: 50}}>歡迎來到Sweet Treats</h1>
-        <h1>客製專屬於你的蛋糕</h1>
-        <p>{props.text}</p>
+        <div className={style.text}>
+          <h1 style={{fontSize: 50}}>歡迎來到Sweet Treats</h1>
+          <h1>源於法國的手工蛋糕</h1>
+        </div>
+        {/* <p>{props.text}</p> */}
       </div>
     </div>
   );

@@ -5,9 +5,9 @@ import '../App.less';
 
 // 引入路由需要的组件
 import { Switch } from 'dva/router';
+//不是export defalut就要用{}來取
 import SubRoutes, { RedirectRoute, NoMatchRoute } from '../utils/SubRoutes';
 
-//這種寫法，導入時會去NavBar資料夾找index.js，方便在資料夾內一起管理index.scss
 import NavBar from './NavBar';
 // import Home from './Home';
 // import About from './About';
@@ -17,12 +17,12 @@ import NavBar from './NavBar';
 // import Register from './User/Register';
 import styles from './IndexPage.scss';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 function IndexPage(props) {
+  
   console.log(props);
-  const { routes, app } = props;
-  console.log('IndexPage.js')
+  const { routes, app } = props; //從dva傳進來的route, app
   console.log(routes);
   console.log(app)
 
@@ -35,10 +35,16 @@ function IndexPage(props) {
       <Content className={styles.content}>
         {/* 一级路由 */}
         <Switch>
-        
+          {/* <Route path="/home" component={Home} />
+          <Route path="/menus" component={Menus} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} /> */}
           {routes.map((route, i) => (
             // 调用封装组件
-            <SubRoutes key={i} {...route} app={app} />
+            <SubRoutes key={i} {...route} app={app} /> //router.js已經寫過一次，這裡又要寫一次
+            
           ))}
           {/*  
               重定向方式：
@@ -52,6 +58,9 @@ function IndexPage(props) {
           <NoMatchRoute />
         </Switch>
       </Content>
+      <Footer className={styles.footer}>
+        <div> Copyright &copy; 2020 By TehoChang</div>
+      </Footer>
     </Layout>
   );
 }

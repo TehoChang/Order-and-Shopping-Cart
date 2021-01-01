@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Table, Button, Row, Col, Message } from 'antd';
 import Request from '../../utils/Request';
-import NewPizza from './NewPizza';
+import NewCake from './NewCake';
+//『組件』引入的時候必須跟檔名同名，但是在NewCake.js中這個function or class名字可以隨意取
 import style from './index.scss';
 
 export default class index extends Component {
   state = {
-    menus:[]
+    menus: [] //用"陣列"儲存數據
   };
 
 
@@ -14,78 +15,80 @@ export default class index extends Component {
     this.getMenusData();
   }
 
- 
-  // 獲取菜單數據
+  獲取菜單列表的數據
   getMenusData = () => {
-
-    Request('/menu.json').then(res => {//url就是新增菜單時的url
+    Request('/menu.json').then(res => {
       // console.log(res);
       if (res && res.status === 200 && res.data) {
         const { data } = res;
-        // 這段是進階語法，我看懂了
-        // 一般setState寫法: setState({aaa:aaa}),直接改state obj裡面的key/value
-        // 老師用的寫法是：setState的參數可以是回調函數，return obj就符合規則
-        // 所以最後return {menus:menus}
+        //setState()可以接收函數作為參數，最後返回要改變的數據：menus
+        //等於setState({menus:menus})
         this.setState(() => {
-          const menus = []; 
+          const menus = [];
           for (const key in data) {
-            menus.push({   
-              key: key,
-              name: data[key].name //name:用戶提交的商品名稱
+
+            menus.push({
+              key: key, //key是firebase幫我增加的
+              name: data[key].name,
+              sizeOptions: `${data[key].options[0].size} ${(data[key].options[1])?','+data[key].options[1].size : ''}`
+
             });
           }
-          
           return { menus };
         });
       }
     });
   };
 
+
   renderMenuTable() {
-    const columns = [ //<Table>的配置。columns的內容是一行一行的渲染（遍歷）
+    const columns = [
       {
         key: 'name',
         title: '種類',
-        dataIndex: 'key' //他會去dataSource中找name。反正原理就是數據mapping來mapping去
+        dataIndex: 'name'
+      },
+      {
+        key: 'sizeOptions',
+        title: '尺寸選擇',
+        dataIndex: 'sizeOptions'
       },
       {
         key: 'action',
         title: '刪除',
-        render: (text, record) => (  //這個record代表table中的一條，應該是內建的參數
+        render: (text, record) => (  //record一條是dataSource_array中的一項。
           <Button
             onClick={() => handleDelete(record)}
             className={style['del-btn']}
           >
-            <span>X</span>
+            <span>x</span>
           </Button>
         )
-      },
-      {
-        title:'3'  //配置m/4array 多一項，table就多一個colum
-      }     
+      }
     ];
-
+ 
     const handleDelete = record => {
-      Request(`/menu/${record.key}.json`, { //這個key是state.menus中的key
+      Request(`/menu/${record.key}.json`, {  // /menu/key.json 可以在firebase server選中某一項數據
         method: 'delete'
       }).then(res => {
         // console.log(res);
         if (res && res.status === 200) {
-          Message.success('刪除成功');
-          // window.location.href = '/#/menus'; //目前的設計是跳轉回menus。要如何做到刷新頁面呢？state改變的話會刷新，
+          Message.success('刪除成功',2);
           window.history.go(0);
+          
         } else {
           Message.error('刪除失败');
         }
       });
     };
 
-    // const dataSource = [    //dataSource假數據是一個array of objects，看來<Table>的dataSource需要這種格式
+    // const dataSource = [
     //   {
     //     key: 1,
     //     name: 'pizza'
     //   }
     // ];
+
     return (
       <Table
         pagination={false}
@@ -98,15 +101,16 @@ export default class index extends Component {
       />
     );
   }
-  renderNewPizza() {
-    return <NewPizza />;
+
+  rendernewCake() {
+    return <NewCake />;
   }
 
   render() {
     return (
       <Row className={style.admin}>
         <Col sm={24} md={16} className={style.left}>
-           {this.renderNewPizza()}  {/*為什麼不直接寫<NewPizza/> */}
+          {this.rendernewCake()}  
         </Col>
         <Col sm={24} md={8} className={style.right}>
           <h3>菜單</h3>

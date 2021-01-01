@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 
 export default class index extends Component {
   render() {
-    return <div>訂製教學</div>;
+    return <div>點餐教學</div>;
   }
 }
