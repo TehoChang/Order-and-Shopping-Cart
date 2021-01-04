@@ -1,23 +1,13 @@
-//其中很多是dva特有的用法
 import React from 'react';
 import { Router, Switch } from 'dva/router';
-// import IndexPage from './pages/IndexPage';
-// import Home from './pages/Home';
-// import Menus from './pages/Menus';
-// import About from './pages/About';
-// import Admin from './pages/Admin';
-// import Login from './pages/User/Login';
-// import Register from './pages/User/Register';
 import SubRoutes from './utils/SubRoutes';
 
-// 路由權限的開關
 const isSignedIn = true;
 const isAdmin=true;
 
-const RouteConfig = [ //
+const RouteConfig = [ 
   {
     path: '/',
-    // component: IndexPage,
     component: () => import('./pages/IndexPage'),
     model: [],
     routes: [
@@ -39,7 +29,6 @@ const RouteConfig = [ //
         component: () => import('./pages/Admin'),
         model: [],
         isAdmin
-        // isSignedIn,
       },
       {
         path: '/about',
@@ -96,14 +85,10 @@ const RouteConfig = [ //
 ];
 
 function RouterConfig({ history, app }) {
-  // console.log('router.js');
-  // console.log(app); 有這個app參數應該是因為dva的關係。history也是
   return (
     <Router history={history}>
       <Switch>
-        {/* <Route path="/" component={IndexPage} /> */}
         {RouteConfig.map((route, i) => (
-          // 调用封装组件
           <SubRoutes key={i} {...route} app={app} />
         ))}
       </Switch>

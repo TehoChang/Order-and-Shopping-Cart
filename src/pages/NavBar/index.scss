@@ -5,7 +5,7 @@
   white-space: nowrap;
   height: 100%;
   width: 100%;
-  background: yellow;
+  background: #f8f9fa;
   position: relative;
   .logo {
     display: inline-block;
@@ -42,17 +42,16 @@
     .email {
       display: inline-block;
       font-size: 16px;
-      // line-height: 1.2em;
       max-width: 125px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding-top: 1px; //跟'管理'對齊
+      padding-top: 1px; 
     }
     .icon {
       margin-right:-4px;
       margin-left: -5px;
-      vertical-align: super;; // 置中
+      vertical-align: super;; 
      }
   }
 }

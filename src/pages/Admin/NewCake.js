@@ -6,9 +6,7 @@ const { TextArea } = Input;
 
 class NewCake extends Component {
   handleSubmit = () => {
-    // console.log(this.props.form);
     this.props.form.validateFields((err, value) => {
-      // console.log(value);
       if (!err) {
         const { name, description, size1, price1, size2, price2 } = value;
         let data = {
@@ -41,7 +39,6 @@ class NewCake extends Component {
     });
   };
   render() {
-    //Form.Item標籤的屬性，用來調整layout，使用obj格式設定，
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },

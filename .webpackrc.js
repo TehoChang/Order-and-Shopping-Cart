@@ -1,4 +1,4 @@
-//这是按需加载的配置
+
 const path = require('path');
 
 export default {
@@ -12,7 +12,7 @@ export default {
   theme: {
     "primary-color": "#ed6605" ,
     "link-color": "#ed6605",
-    "font-size-base": "21px",//右上角email字体的大小
+    "font-size-base": "21px",
     "processing-color": "#ed6605",
     "background-color-light": "#fff8eb",
     "dropdown-selected-color": "#ed6605",

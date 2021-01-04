@@ -9,9 +9,6 @@ const { TabPane } = Tabs;
 export default class index extends Component {
   
   handleChangeTab = key => {
-    // console.log(key);
-    // window.location.href = '/#' + key;
-    // console.log(this);
     if (this.props.location.pathname !== key) {
       this.props.history.push(key);
     }

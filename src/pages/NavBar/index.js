@@ -3,6 +3,7 @@ import { Menu, Dropdown, Icon } from 'antd';
 import { Link } from 'dva/router';
 import style from './index.scss';
 
+
 const menus = [
   {
     key: 'home',
@@ -23,16 +24,15 @@ const menus = [
     key: 'admin',
     path: '/admin',
     name: '管理',
-    className: style.admin  //
+    className: style.admin  
   },
   {
     key: 'login',
     path: '/login',
     name: '登錄',
-    className: style.login, //在css設定註冊、登錄、dropdown的位置
+    className: style.login,
     isAuthority: true
   },
-  //为什么这里的结构跟上面几项不一样？
   {
     key: 'register',
     path: '/register',
@@ -42,25 +42,13 @@ const menus = [
   }
 ];
 
-export default class index extends Component {
-  //我搞不懂什麼時候this.state要寫在constructor，什麼時候不用？
+export default class index extends Component { 
   constructor(props) {
-    // console.log(props);
-    // console.log('NavBar/index.js');
-
     super(props);
     this.state = {
       selectedKeys: []
     };
   }
-
-
-  /**
-   * 当页面刷新时，组件会重新加载，会执行 componentDidMount(cdm) 鉤子函數
-   * 为了解决刷新页面，页面虽然改变了，但NavBar的selectedKeys没有改变的问题
-   * 使用onClcik event 来改变state，点击NavBar item触发setState，改变
-   * <Menu defaultSelectedKeys={}>
-   */
   componentDidMount() {
     this.handleSetSelectedKeys(this.props.location.pathname);
   }
@@ -68,30 +56,24 @@ export default class index extends Component {
   componentDidUpdate(nextProps) {
     const { pathname } = this.props.location;
     if (nextProps.location.pathname !== pathname) {
-      // 当路由发生改变时, 改变当前菜單选中key值
       this.handleSetSelectedKeys(nextProps.location.pathname);
     }
   }
-
   handleSetSelectedKeys(pathname) {
-    // /admin = ["/","admin"]
-    // 根据'/'把路由地址分割成一个数组
     const tempArr = pathname.split('/');
-    // 如果数组存在，且数组的长度小于2,表示的是只有根路径/,设置为Home. 否则取数组中第二个值
     const key = tempArr && tempArr.length < 2 ? 'home' : tempArr[1];
     this.setState({
       selectedKeys: [key]
     });
   }
-  handleClickMenu = ({ key }) => { //從什麼玩意中解構出key? <Menu.Item key="logout">
-    // 登出
+  handleClickMenu = ({ key }) => { 
     if (key === 'logout') {
       window.localStorage.clear();
       this.props.history.push('/login');
     }
   };
 
-  menu = ( //退出按鈕 。一段JSX可以直接賦值給變量
+  menu = ( 
     <Menu onClick={this.handleClickMenu}>
       <Menu.Item key="logout">
         <span>退出</span>
@@ -102,27 +84,31 @@ export default class index extends Component {
   render() {
     return (
       <nav className={style.header}>
-        <a className={style.logo} href="/">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="d-block mx-auto"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
-            <line x1="9.69" y1="8" x2="21.17" y2="8" />
-            <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
-            <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
-            <line x1="14.31" y1="16" x2="2.83" y2="16" />
-            <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
-          </svg>
+        <a className={style.logo} href="/">        
+           <div className="logo">
+              <svg
+                id="logo"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="d-block mx-auto"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
+                <line x1="9.69" y1="8" x2="21.17" y2="8" />
+                <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
+                <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
+                <line x1="14.31" y1="16" x2="2.83" y2="16" />
+                <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
+              </svg>
+           </div>
+          
         </a>
         <Menu
           className={style['menu-left']}
@@ -132,19 +118,16 @@ export default class index extends Component {
         >
           {menus
             .filter(
-              ({ isAuthority }) =>//filter會遍歷陣列中的每一項，每一項是object，從每一項object中解構出isAuthority
+              ({ isAuthority }) =>
                 !(isAuthority && localStorage.key && localStorage.email)
-            )  // (三項都為true)以外的項就顯示
+            )  
             .map(({ key, path, name, className }) => (
               <Menu.Item key={key} className={className}>
                 <Link to={path}>{name}</Link>
               </Menu.Item>
             ))}
         </Menu>
-        {/* 用户email和退出 
-            overlay應該是dropdow會掉下來的內容
-        */}
-        {localStorage.email && localStorage.key && ( //還有這種寫法的嗎？這種寫法的名稱是什麼？表示三個東西都為true就顯示？
+        {localStorage.email && localStorage.key && ( 
           <Dropdown overlay={this.menu} className={style['dropdown-menu']}>
             <a className="ant-dropdown-link">
               <span className={style.email}>{localStorage.email}</span>{' '}

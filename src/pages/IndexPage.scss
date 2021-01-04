@@ -26,7 +26,6 @@
 }
 
 :global {
-  // 因为修改Table组件的样式，如果只能使用全局样式
   .menus-table {
     margin-right: 30px;
     &.cart {
@@ -34,7 +33,6 @@
     }
     table {
       tr {
-        // padding: 10px;
         th {
           background: none;
         }
@@ -45,8 +43,6 @@
       }
     }
   }
-
-  // 提交按钮
   .btn-w-p100 {
     width: 100%;
   }
