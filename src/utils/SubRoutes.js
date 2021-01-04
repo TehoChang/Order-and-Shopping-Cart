@@ -5,19 +5,6 @@ import { connect } from 'dva';
 import NoMatch from '../components/NoMatch';
 import {Message} from 'antd'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const dynamicComponent = (app, models, component, routes, isSignedIn, userInfo, isAdmin) =>
   dynamic({
     app,
