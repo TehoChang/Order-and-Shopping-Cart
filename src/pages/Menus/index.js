@@ -106,7 +106,7 @@ export default class index extends Component {
         
       });
     }
-    (dataSource);
+   
 
     return (
       <Table

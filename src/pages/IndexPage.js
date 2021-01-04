@@ -10,12 +10,7 @@ import styles from './IndexPage.scss';
 const { Header, Content, Footer } = Layout;
 
 function IndexPage(props) {
-
-  (props);
   const { routes, app } = props;
-  (routes);
-  (app)
-
   return (
     <Layout className={styles.layout}>
       <Header className={styles.header}>
