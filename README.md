@@ -14,15 +14,13 @@ Sweet Treats is a web app for ordering cakes. I implemented Role-Based Access Co
 
 ## Screenshots
 Sign Up Page
-![README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.26.27.png](README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.26.27.png)
+![sign up page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/sign%20up%20page.png?raw=true)
 
 Ordering Page
-
-![README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.24.28.png](README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.24.28.png)
+![ordering page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/ordering%20page.png?raw=true)
 
 Administration Page
-
-![README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.25.44.png](README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.25.44.png)
+![administration page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/administation%20page.png？raw=true)
 
 ## Technologies
 * dva:   
