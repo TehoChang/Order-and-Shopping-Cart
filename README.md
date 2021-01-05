@@ -2,8 +2,8 @@
 >Ordering and Shopping Cart app created with dva(React), and Ant Design.
 
 ## Table of Contents
-[General Info](#general-info)
-* [Screenshots](#screenshots)
+[General Info](#general-inf)
+* [Screenshots] #screenshots
 * [Technologies](#technologies)
 * [Setup](#setup)
 
