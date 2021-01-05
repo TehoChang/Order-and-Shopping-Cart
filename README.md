@@ -32,14 +32,14 @@ Lightweight front-end framework based on react, redux and react-router.
 * Ant Design
 
 ## Setup
-* Download the source code from the github. 
-`$ git clone [git@github.com](mailto:git@github.com):TehoChang/Sweet-Treats.git`
+* Download the source code from the github.   
+`$ git clone git@github.com:TehoChang/Sweet-Treats.git`
 
-* Get into the project, and then install the packages. 
+* Get into the project, and then install the packages.   
 `$ npm install`
 
-* Start the project. 
-`$npm start`
+* Start the project.   
+`$ npm start`
 
 ## User Guide
 The startup process may take up to tens of seconds, depending on your environment.  
