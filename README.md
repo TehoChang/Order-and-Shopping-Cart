@@ -10,7 +10,7 @@
 * [Demo Link](#demo-link)
 
 ## General info
-Sweet Treats is a web app for ordering cakes. I implemented Role-Based Access Control (RBAC) in this app. Therefore, the regular users have the access to order cakes and add them into shopping carts. And the administrators has the access to create new menus.
+Sweet Treats is a web app for ordering cakes. I implemented Role-Based Access Control (RBAC) in this app. Therefore, the regular users have the access to order cakes and add them into shopping carts. The administrators have the access to create new menus.
 
 ## Screenshots
 Sign Up Page
@@ -24,16 +24,12 @@ Administration Page
 
 ![README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.25.44.png](README%20987f4a4e375d4e6098603a3eb441cd1d/2021-01-05_4.25.44.png)
 
----
-
 ## Technologies
 * dva: 
 Lightweight front-end framework based on react, redux and react-router.
 [https://github.com/dvajs/dva#community](https://github.com/dvajs/dva#community)
 * JavaScript
 * Ant Design
-
----
 
 ## Setup
 * Download the source code from the github
