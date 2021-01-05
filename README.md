@@ -13,15 +13,15 @@
 Sweet Treats is a web app for ordering cakes. I implemented Role-Based Access Control (RBAC) in this app. Therefore, the regular users have the access to order cakes and add them into shopping carts. The administrators have the access to create new menus.
 
 ## Screenshots
-Sign Up Page. 
+#### Sign Up Page
 
 ![sign up page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/sign%20up%20page.png?raw=true)
 
-Ordering Page. 
+#### Ordering Page 
 
 ![ordering page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/ordering%20page.png?raw=true)
 
-Administration Page. 
+#### Administration Page 
 
 ![administration page](https://github.com/TehoChang/Sweet-Treats/blob/master/screenshots/administation%20page.png?raw=true)
 
