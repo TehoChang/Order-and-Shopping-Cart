@@ -1,15 +1,7 @@
-# README
-
 # Sweet Treats
-
----
-
-Ordering and Shopping Cart app created with dva(React), and Ant Design.
+>Ordering and Shopping Cart app created with dva(React), and Ant Design.
 
 ## Table of Contents
-
----
-
 * [General info](#general-info)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
