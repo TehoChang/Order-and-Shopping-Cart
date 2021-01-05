@@ -2,12 +2,11 @@
 >Ordering and Shopping Cart app created with dva(React), and Ant Design.
 
 ## Table of Contents
-[General Info](#general-info)
-* [Screenshots] #screenshots
+* [General Info](#general-info)
+* [Screenshots] (#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
-
-*[User Guide](user-guide)
+* [User Guide](#user-guide)
 * [Features](#features)
 * [Status](#status)
 * [Inspiration](#inspiration)
@@ -34,7 +33,6 @@ Administration Page
 
 ## Technologies
 * dva: 
-
 Lightweight front-end framework based on react, redux and react-router.
 [https://github.com/dvajs/dva#community](https://github.com/dvajs/dva#community)
 * JavaScript
